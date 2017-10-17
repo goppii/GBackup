@@ -32,7 +32,7 @@ public class SystemTrayC implements ActionListener, SubjectInterface {
             Image image = null;
             try
             {
-                image = ImageIO.read(getClass().getResource("../../../images/information.gif"));
+                image = ImageIO.read(getClass().getResource("../../../images/logo.png"));
             }
             catch (IOException e)
             {
