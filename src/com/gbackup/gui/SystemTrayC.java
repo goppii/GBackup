@@ -1,7 +1,7 @@
 package com.gbackup.gui;
 
-import com.gbackup.components.SubjectInterface;
-import com.gbackup.components.ObserverInterface;
+import com.gbackup.components.SubjectI;
+import com.gbackup.components.ObserverI;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 
-public class SystemTrayC implements ActionListener, SubjectInterface {
+public class SystemTrayC implements ActionListener, SubjectI {
 
     private PopupMenu m_popupMenu = null;
 
@@ -91,23 +91,23 @@ public class SystemTrayC implements ActionListener, SubjectInterface {
         
     }
 
-    private Vector<ObserverInterface> observerVector = new Vector<ObserverInterface>();
+    private Vector<ObserverI> observerVector = new Vector<>();
 
     @Override
-    public void add(ObserverInterface observer) {
+    public void add(ObserverI observer) {
         observerVector.add(observer);
     }
 
     @Override
     public void notify(int i, int j) {
-        for(ObserverInterface observer : observerVector)
+        for(ObserverI observer : observerVector)
         {
             observer.handleNotify(i, j);
         }
     }
 
     @Override
-    public void remove(ObserverInterface observer) {
+    public void remove(ObserverI observer) {
         final boolean remove = observerVector.remove(observer);
     }
 }

@@ -10,9 +10,6 @@ public class main {
     {
         GuiC mainGui = new GuiC();
 
-        FileTreeControllerC fileTree = new FileTreeControllerC("myFileTree");
-        mainGui.setTree(fileTree);
-
         SystemTrayC mySystemTray = new SystemTrayC();
         mySystemTray.create();
 

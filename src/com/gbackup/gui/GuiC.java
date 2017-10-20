@@ -1,32 +1,53 @@
 package com.gbackup.gui;
 
-import com.gbackup.components.FileTreeControllerC;
-import com.gbackup.components.FrameControllerC;
-import  com.gbackup.components.ObserverInterface;
-import com.gbackup.components.PanelControllerC;
+import com.gbackup.components.*;
 
 import javax.swing.*;
-import javax.swing.tree.TreeModel;
+import java.awt.*;
 
-public class GuiC implements ObserverInterface {
+public class GuiC implements ObserverI {
 
 
-    FrameControllerC m_frameController = null;
+    private FrameControllerC m_frameController = null;
 
     public GuiC()
     {
         m_frameController = new FrameControllerC("GBackup");
         m_frameController.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        m_frameController.setMinimumSize(new Dimension(400, 400));
 
-        m_frameController.getContentPane().add(new PanelControllerC());
+        PathControllerC pathController = new PathControllerC();
+
+        FileTreeControllerC fileTree = new FileTreeControllerC(new JTree());
+        fileTree.setPathController(pathController);
+
+        //main panel
+        PanelControllerC mainPanel = new PanelControllerC();
+        mainPanel.setLayout(new GridLayout(2,1));
+
+        PanelControllerC buttonPanel = new PanelControllerC();
+        buttonPanel.setLayout(new GridLayout(1,3));
+
+        JButton addPathButton = new JButton();
+        AddPathActionListenerC addPathListener = new AddPathActionListenerC(addPathButton);
+        addPathListener.add(fileTree);
+        addPathListener.setPathController(pathController);
+
+        addPathButton.addActionListener(addPathListener);
+        addPathButton.setName("AddPathButton");
+        addPathButton.setText("Add");
+
+        buttonPanel.add(addPathButton);
+        buttonPanel.add(new ButtonControllerC());
+        buttonPanel.add(new ButtonControllerC());
+
+        mainPanel.add(fileTree.getTree());
+        mainPanel.add(buttonPanel);
+
+        m_frameController.getContentPane().add(mainPanel);
 
         m_frameController.pack();
-        m_frameController.setVisible(false);
-    }
-
-    public void setTree(FileTreeControllerC tree)
-    {
-        m_frameController.getContentPane().add(tree.getView());
+        //m_frameController.setVisible(false);
     }
 
     @Override

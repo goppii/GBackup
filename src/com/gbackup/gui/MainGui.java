@@ -23,7 +23,7 @@ public class MainGui {
         });
 
 
-        m_fileTree = new FileTreeControllerC("SpeacialNode");
+        //m_fileTree = new FileTreeControllerC("SpeacialNode");
 
 
         //fileTreeGui.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
