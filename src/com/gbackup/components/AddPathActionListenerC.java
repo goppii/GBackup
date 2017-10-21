@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 
-public class AddPathActionListenerC extends SubjectC implements ActionListener {
+public class AddPathActionListenerC implements ActionListener {
 
     private JFileChooser m_fileChooser = null;
     private JComponent m_parentComponent = null;
@@ -34,7 +34,6 @@ public class AddPathActionListenerC extends SubjectC implements ActionListener {
             if(null != m_pathController)
             {
                 m_pathController.addPath(selectedFile.getAbsolutePath());
-                this.notify(1,1);
             }
         }
     }

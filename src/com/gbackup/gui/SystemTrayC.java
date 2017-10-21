@@ -80,7 +80,7 @@ public class SystemTrayC implements ActionListener, SubjectI {
             {
                 if(m_popupMenu.getItem(i).getName().equals("Open"))
                 {
-                        notify(SystemTrayTypesC.TrayIconType.OPEN.getValue(), 0);
+                        notify(this.getClass().getName(), SystemTrayTypesC.TrayIconType.OPEN.getValue());
                 }
                 System.out.println(m_popupMenu.getItem(i).getName());
             }
@@ -99,10 +99,10 @@ public class SystemTrayC implements ActionListener, SubjectI {
     }
 
     @Override
-    public void notify(int i, int j) {
+    public void notify(String name, int value) {
         for(ObserverI observer : observerVector)
         {
-            observer.handleNotify(i, j);
+            observer.handleNotify(name, value);
         }
     }
 

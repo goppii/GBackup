@@ -20,17 +20,33 @@ public class GuiC implements ObserverI {
 
         FileTreeControllerC fileTree = new FileTreeControllerC(new JTree());
         fileTree.setPathController(pathController);
+        pathController.add(fileTree);
 
         //main panel
         PanelControllerC mainPanel = new PanelControllerC();
-        mainPanel.setLayout(new GridLayout(2,1));
+        mainPanel.setLayout(new GridLayout(2,2));
+
+        PanelControllerC fileInfoPanel = new PanelControllerC();
+        fileInfoPanel.setLayout(new GridLayout(2,2));
+
+        JLabel sizeName = new JLabel();
+        sizeName.setText("Size:");
+        fileInfoPanel.add(sizeName);
+
+        fileInfoPanel.add(new JLabel());
+
+        JLabel quantityName = new JLabel();
+        quantityName.setText("Quantity:");
+        fileInfoPanel.add(quantityName);
+
+        fileInfoPanel.add(new JLabel());
 
         PanelControllerC buttonPanel = new PanelControllerC();
         buttonPanel.setLayout(new GridLayout(1,3));
+        buttonPanel.setMaximumSize(new Dimension(40, 20));
 
         JButton addPathButton = new JButton();
         AddPathActionListenerC addPathListener = new AddPathActionListenerC(addPathButton);
-        addPathListener.add(fileTree);
         addPathListener.setPathController(pathController);
 
         addPathButton.addActionListener(addPathListener);
@@ -41,7 +57,8 @@ public class GuiC implements ObserverI {
         buttonPanel.add(new ButtonControllerC());
         buttonPanel.add(new ButtonControllerC());
 
-        mainPanel.add(fileTree.getTree());
+        mainPanel.add(new JScrollPane(fileTree.getTree()));
+        mainPanel.add(fileInfoPanel);
         mainPanel.add(buttonPanel);
 
         m_frameController.getContentPane().add(mainPanel);
@@ -51,9 +68,9 @@ public class GuiC implements ObserverI {
     }
 
     @Override
-    public void handleNotify(int i, int j) {
+    public void handleNotify(String name, int value) {
 
-        if(i == SystemTrayTypesC.TrayIconType.OPEN.getValue())
+        if(value == SystemTrayTypesC.TrayIconType.OPEN.getValue())
         {
             m_frameController.setVisible(true);
         }
